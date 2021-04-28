@@ -1,6 +1,6 @@
 <template>
     <section class="section-modal">
-        <h2 class="modal-title">Корзина</h2>
+        <h2 class="modal-title">Закладки</h2>
         <button class="modal-close">
             <img src="@/images/modal-close.svg" alt="close" />
         </button>
@@ -21,7 +21,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+/* !!!!!!!!!!!!!!! */
+/* common styles for modal windows */
 .section-modal {
     display: grid;
     grid-template-rows: 13% 1fr;
@@ -90,5 +92,4 @@ export default {
     background-size: cover;
     opacity: 0.5;
 }
-
 </style>

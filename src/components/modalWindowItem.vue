@@ -1,5 +1,3 @@
 <template>
-    <div class="goods_item"></div>
+    <div class="goodsItem"></div>
 </template>
-
-<style scoped></style>

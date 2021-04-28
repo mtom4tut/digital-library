@@ -1,14 +1,15 @@
 <template>
     <div id="app">
         <headerVue />
-
+        <mainVue/>
         <!-- modal window -->
-        <modalWindow />
+        <!-- <modalWindow /> -->
     </div>
 </template>
 
 <script>
 import headerVue from '@/components/headerVue';
+import mainVue from '@/components/mainVue';
 
 // import components modal window
 import modalWindow from '@/components/modalWindow';
@@ -17,6 +18,7 @@ export default {
     name: 'App',
     components: {
         headerVue,
+        mainVue,
         // components modal window
         modalWindow,
     },
@@ -36,6 +38,8 @@ export default {
 }
 
 a,
+input,
+select,
 button {
     outline: none;
     border: none;

@@ -1,5 +1,5 @@
 <template>
-    <header class="header">
+    <header>
         <div class="header_content">
             <a href="/">
                 <img src="@/images/logo.png" alt="Logo" />
@@ -19,7 +19,7 @@
 </template>
 
 <style scoped>
-.header {
+header {
     width: 100%;
     height: 160px;
     background: #7bb33f;
