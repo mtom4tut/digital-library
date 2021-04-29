@@ -9,19 +9,27 @@
             <option value="rating">Рейтингу</option>
         </select>
 
+        <button aria-label="direction-sort">
+            <img src="../images/arrow.png" alt="arrow" />
+        </button>
+
         <span>Издательство:</span>
         <select name="filterPublishingHouse" v-bind:arrayPublishingHouse="arrayPublishingHouse">
-            <mainOptionItem />
+            <mainOptionItem 
+                v-for="item of arrayPublishingHouse" 
+                v-bind:key="item.id" 
+                v-bind:item="item"
+            />
         </select>
 
         <span>Автор:</span>
         <select name="filterAuthor" v-bind:arrayAuthor="arrayAuthor">
-            
+            <mainOptionItem 
+                v-for="item of arrayAuthor" 
+                v-bind:key="item.id" 
+                v-bind:item="item"
+            />
         </select>
-
-        <button aria-label="direction-sort">
-            <img src="../images/arrow.png" alt="arrow" />
-        </button>
     </div>
 </template>
 
@@ -34,8 +42,6 @@ import arrayAuthor from '@/json/arrayAuthor.json';
 export default {
     name: 'mainVue',
     components: {
-        mainInteractiveBlock,
-        mainItem,
         mainOptionItem
     },
     data() {

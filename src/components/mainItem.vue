@@ -30,7 +30,14 @@
         </div>
         <div class="btn_block">
             <button id="buy" aria-label="buy" :value="`${item.id}`">Купить</button>
-            <button id="bookmarks" class="bookmarks" aria-label="bookmarks" :value="`${item.id}`">
+            <button
+                id="bookmarks"
+                class="bookmarks"
+                aria-label="bookmarks"
+                :value="`${item.id}`"
+                v-bind:class="{ bookmarks_active: item.bookmarksActive }"
+                v-on:click="item.bookmarksActive = !item.bookmarksActive"
+            >
                 <img src="../images/bookmark.png" alt="bookmark" />
             </button>
         </div>
@@ -54,7 +61,7 @@
 
 <script>
 export default {
-    name: 'App',
+    name: 'mainItem',
     props: {
         item: {
             type: Object,
@@ -123,7 +130,7 @@ p {
     background-color: #50a43430;
 }
 
-.bookmarks-active {
+.bookmarks_active {
     background: linear-gradient(90deg, #3f435a, #24c07a);
 }
 

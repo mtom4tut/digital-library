@@ -7,7 +7,8 @@
         "yearPublishing": "2021",
         "rating": "5",
         "price": "752",
-        "bookmarksActiv": "false"
+        "bookmarksActive": false,
+        "yourRating": false
     },
     {
         "id": "1",
@@ -17,7 +18,8 @@
         "yearPublishing": "2020",
         "rating": "4.69",
         "price": "1733",
-        "bookmarksActiv": "false"
+        "bookmarksActive": false,
+        "yourRating": false
     },
     {
         "id": "2",
@@ -27,7 +29,8 @@
         "yearPublishing": "2020",
         "rating": "5",
         "price": "179",
-        "bookmarksActiv": "false"
+        "bookmarksActive": false,
+        "yourRating": false
     },
     {
         "id": "3",
@@ -37,7 +40,8 @@
         "yearPublishing": "2020",
         "rating": "5",
         "price": "136",
-        "bookmarksActiv": "false"
+        "bookmarksActive": false,
+        "yourRating": false
     },
     {
         "id": "4",
@@ -47,7 +51,8 @@
         "yearPublishing": "2020",
         "rating": "4.44",
         "price": "126",
-        "bookmarksActiv": "false"
+        "bookmarksActive": false,
+        "yourRating": false
     },
     {
         "id": "5",
@@ -57,6 +62,7 @@
         "yearPublishing": "2021",
         "rating": "5",
         "price": "564",
-        "bookmarksActiv": "false"
+        "bookmarksActive": false,
+        "yourRating": false
     }
 ]
