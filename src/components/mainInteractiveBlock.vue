@@ -1,35 +1,53 @@
 <template>
     <div class="interactive_block">
-        <!-- v-model="message" -->
-        <input type="text" name="searchBook" id="searchBook" placeholder="Найти книгу" />
-
-        <span>Сортировать по:</span>
-        <select name="sort">
-            <option value="alphabet">Алфавиту</option>
-            <option value="rating">Рейтингу</option>
-        </select>
-
-        <button aria-label="direction-sort">
-            <img src="../images/arrow.png" alt="arrow" />
-        </button>
-
-        <span>Издательство:</span>
-        <select name="filterPublishingHouse" v-bind:arrayPublishingHouse="arrayPublishingHouse">
-            <mainOptionItem 
-                v-for="item of arrayPublishingHouse" 
-                v-bind:key="item.id" 
-                v-bind:item="item"
+        <div>
+            <input
+                type="text"
+                name="searchBook"
+                id="searchBook"
+                placeholder="Найти книгу"
+                v-model="searchText"
             />
-        </select>
 
-        <span>Автор:</span>
-        <select name="filterAuthor" v-bind:arrayAuthor="arrayAuthor">
-            <mainOptionItem 
-                v-for="item of arrayAuthor" 
-                v-bind:key="item.id" 
-                v-bind:item="item"
-            />
-        </select>
+            <span>Сортировать по:</span>
+            <select name="filterSort" v-model="filterSort">
+                <option value="Алфавиту">Алфавиту</option>
+                <option value="Рейтингу">Рейтингу</option>
+            </select>
+
+            <button
+                aria-label="direction-sort"
+                v-bind:class="{ inverse: isActiveInverse }"
+                v-on:click="isActiveInverse = !isActiveInverse"
+            >
+                <img src="../images/arrow.png" alt="arrow" />
+            </button>
+        </div>
+
+        <div>
+            <span>Издательство:</span>
+            <select
+                name="filterPublishingHouse"
+                v-bind:arrayPublishingHouse="filterPublishingHouse"
+                v-model="filterPublishingHouse"
+            >
+                <mainOptionItem
+                    v-for="item of arrayPublishingHouse"
+                    v-bind:key="item.id"
+                    v-bind:item="item"
+                />
+            </select>
+
+            <span>Автор:</span>
+            <select name="filterAuthor" v-bind:arrayAuthor="arrayAuthor" v-model="filterAuthor">
+                <mainOptionItem v-for="item of arrayAuthor" v-bind:key="item.id" v-bind:item="item" />
+            </select>
+
+            <span>Год:</span>
+            <select name="filterYear" v-bind:arrayYear="arrayYear" v-model="filterYear">
+                <mainOptionItem v-for="item of arrayYear" v-bind:key="item.id" v-bind:item="item" />
+            </select>
+        </div>
     </div>
 </template>
 
@@ -38,17 +56,42 @@ import mainOptionItem from '@/components/mainOptionItem';
 // import data
 import arrayPublishingHouse from '@/json/arrayPublishingHouse.json';
 import arrayAuthor from '@/json/arrayAuthor.json';
+import arrayYear from '@/json/arrayYear.json';
 
 export default {
     name: 'mainVue',
     components: {
-        mainOptionItem
+        mainOptionItem,
     },
     data() {
         return {
-            arrayPublishingHouse: arrayPublishingHouse,
-            arrayAuthor: arrayAuthor,
+            arrayPublishingHouse,
+            arrayAuthor,
+            arrayYear,
+            isActiveInverse: true,
+            filterPublishingHouse: 'Все',
+            filterAuthor: 'Все',
+            filterYear: 'Все',
+            filterSort: 'Алфавиту',
+            searchText: '',
         };
+    },
+    watch: {
+        filterAuthor(value) {
+            this.$parent.filterAuthor = value;
+        },
+        filterPublishingHouse(value) {
+            this.$parent.filterPublishingHouse = value;
+        },
+        filterYear(value) {
+            this.$parent.filterYear = value;
+        },
+        filterSort(value) {
+            this.$parent.filterSort = value;
+        },
+        searchText(value) {
+            this.$parent.searchText = value;
+        },
     },
 };
 </script>
@@ -57,7 +100,13 @@ export default {
 .interactive_block {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+div {
+    margin: 10px 0;
 }
 
 input {
@@ -90,10 +139,6 @@ button {
     border-radius: 5px;
     margin: 15px;
     padding: 10px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 input:hover,
@@ -104,7 +149,7 @@ button:hover {
 
 /* a class for a button showing the change in 
 the sorting direction: from smallest to largest */
-.fromSmallest {
+.inverse {
     transform: rotate(180deg);
 }
 </style>

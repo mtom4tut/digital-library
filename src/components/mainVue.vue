@@ -1,10 +1,9 @@
 <template>
     <main id="main">
         <mainInteractiveBlock />
-        <div class="main_blockItems" v-bind:arrayBook="arrayBook" @click="persist">
-            <mainItem v-for="item of arrayBook" v-bind:key="item.id" v-bind:item="item" />
+        <div class="main_blockItems" v-bind:arrayBook="filterFunction" @click="persist">
+            <mainItem v-for="item of filterFunction" v-bind:key="item.id" v-bind:item="item" />
         </div>
-        {{ arrayBook }}
     </main>
 </template>
 
@@ -25,16 +24,57 @@ export default {
         return {
             arrayBook: arrayBook,
             localStorageData: [],
+            filterPublishingHouse: 'Все',
+            filterAuthor: 'Все',
+            filterYear: 'Все',
+            filterSort: 'Алфавит',
+            searchText: '',
         };
+    },
+    computed: {
+        filterFunction() {
+            // if (
+            //     // все
+            //     this.filterAuthor == 'Все' &&
+            //     this.filterPublishingHouse == 'Все' &&
+            //     this.searchText == '' &&
+            //     this.filterYear == 'Все'
+            // ) {
+            //     return this.arrayBook;
+            // } else if (
+            //     // по автору
+            //     this.filterPublishingHouse == 'Все' &&
+            //     this.searchText == '' &&
+            //     this.filterYear == 'Все'
+            // ) {
+            //     return this.arrayBook.filter((item) => item.author == this.filterAuthor);
+            // } else if (
+            //     // по издательству
+            //     this.filterAuthor == 'Все' &&
+            //     this.searchText == '' &&
+            //     this.filterYear == 'Все'
+            // ) {
+            //     return this.arrayBook.filter((item) => item.publishingHouse == this.filterPublishingHouse);
+            // } else if (
+            //     // по году
+            //     this.filterAuthor == 'Все' &&
+            //     this.searchText == '' &&
+            //     this.filterPublishingHouse == 'Все'
+            // ) {
+            //     return this.arrayBook.filter((item) => item.yearPublishing == this.filterYear);
+            // }
+        },
     },
     methods: {
         persist() {
+            console.log(this.filterAuthor);
             this.localStorageData = [];
             for (const item of this.arrayBook) {
                 if (item.bookmarksActive || item.yourRating) {
                     this.localStorageData.push({
                         id: item.id,
                         bookmarksActive: item.bookmarksActive,
+                        rating: item.rating,
                         yourRating: item.yourRating,
                     });
                 }
@@ -42,6 +82,9 @@ export default {
 
             const parsed = JSON.stringify(this.localStorageData);
             localStorage.setItem('localStorageData', parsed);
+        },
+        filterAuthorFunction: function($event) {
+            console.log($event);
         },
     },
     mounted() {
@@ -54,6 +97,7 @@ export default {
                     })
                     .indexOf(item.id);
                 this.arrayBook[index].bookmarksActive = item.bookmarksActive;
+                this.arrayBook[index].rating = item.rating;
                 this.arrayBook[index].yourRating = item.yourRating;
             }
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="mainItem">
-        <img :src="require(`../assets/images/${item.id}.jpg`)" alt="imgBook" />
+        <img :src="require(`../assets/images/${item.id}.jpg`)" alt="imgBook" class="border-radius"/>
         <div class="content_block">
             <h3>{{ item.nameBook }}</h3>
             <p>
@@ -41,20 +41,29 @@
                 <img src="../images/bookmark.png" alt="bookmark" />
             </button>
         </div>
-        <div class="rating_block">
-            <b>Оценить:</b>
+        <div
+            class="rating_block"
+            v-bind:class="{ rating_block_active: item.yourRating }"
+            v-on:click="item.yourRating = true"
+        >
+            <b class="estimate">Оценить:</b>
             <div class="rating-area" :value="`${item.id}`">
-                <input type="radio" :id="`star-5-${item.id}id`" name="rating" value="5" />
+                <input type="radio" :id="`star-5-${item.id}id`" name="rating" value="5" v-on:click="itemRating(5)"/>
                 <label :for="`star-5-${item.id}id`"></label>
-                <input type="radio" :id="`star-4-${item.id}id`" name="rating" value="4" />
+                <input type="radio" :id="`star-4-${item.id}id`" name="rating" value="4" 
+                v-on:click="itemRating(4)"/>
                 <label :for="`star-4-${item.id}id`"></label>
-                <input type="radio" :id="`star-3-${item.id}id`" name="rating" value="3" />
+                <input type="radio" :id="`star-3-${item.id}id`" name="rating" value="3" 
+                v-on:click="itemRating(3)"/>
                 <label :for="`star-3-${item.id}id`"></label>
-                <input type="radio" :id="`star-2-${item.id}id`" name="rating" value="2" />
+                <input type="radio" :id="`star-2-${item.id}id`" name="rating" value="2" 
+                v-on:click="itemRating(2)"/>
                 <label :for="`star-2-${item.id}id`"></label>
-                <input type="radio" :id="`star-1-${item.id}id`" name="rating" value="1" />
+                <input type="radio" :id="`star-1-${item.id}id`" name="rating" value="1" 
+                v-on:click="itemRating(1)"/>
                 <label :for="`star-1-${item.id}id`"></label>
             </div>
+            <b class="thank">Спасибо за отзыв!</b>
         </div>
     </div>
 </template>
@@ -68,6 +77,11 @@ export default {
             required: true,
         },
     },
+    methods: {
+        itemRating(rating) {
+            this.item.rating = Math.round(((Number(this.item.rating) + Number(rating))/2)*100)/100;
+        }
+    }
 };
 </script>
 
@@ -88,6 +102,11 @@ export default {
 img {
     width: 100%;
     height: 100%;
+}
+
+.border-radius {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .content_block {
@@ -136,9 +155,20 @@ p {
 
 /* rating block */
 .rating_block {
-    padding-top: 20px;
+    padding-top: 15px;
     padding-left: 10px;
     text-align: start;
+}
+
+.rating_block_active .estimate,
+.rating_block_active .rating-area,
+.thank {
+    display: none;
+}
+
+.rating_block_active .thank {
+    display: block;
+    margin-top: 12px;
 }
 
 .rating-area {

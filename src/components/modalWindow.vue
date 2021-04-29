@@ -32,10 +32,10 @@ export default {
     background-color: #ecebeb;
     border-radius: 20px;
 
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate3d(-50%, 40%, 0);
+    transform: translate3d(-50%, -50%, 0);
 
     -webkit-box-shadow: 0px 4px 20px #5ea64965;
     -moz-box-shadow: 0px 4px 20px #5ea64965;
