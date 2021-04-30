@@ -1,8 +1,12 @@
 <template>
     <div id="app">
+        <!-- шапка сайта  -->
         <headerVue />
-        <mainVue/>
-        <!-- modal window -->
+
+        <!-- основной блок -->
+        <mainVue />
+
+        <!-- модальное окно закладок -->
         <modalWindow />
     </div>
 </template>
@@ -16,6 +20,7 @@ import modalWindow from '@/components/modalWindow';
 
 export default {
     name: 'App',
+    // подключение компонентов
     components: {
         headerVue,
         mainVue,
@@ -26,6 +31,7 @@ export default {
 </script>
 
 <style>
+/* глобальные стили стили  */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;600&display=swap');
 
 #app {

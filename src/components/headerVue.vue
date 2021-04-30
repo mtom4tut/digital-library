@@ -12,7 +12,7 @@
 
                 <div class="info_item" v-on:click="openModal()">
                     <button id="bookmarks">Закладки:</button>
-                    <span id="bookmarks_num">{{countBookmarks}}</span>
+                    <span id="bookmarks_num">{{ countBookmarks }}</span>
                 </div>
             </div>
         </div>
@@ -20,37 +20,45 @@
 </template>
 
 <script>
-import { busHeader } from '../main'; // приходит
-import { busModal } from '../main'; // уходит
+import { busHeader } from '../main'; // приходит из mainItem.vue
+import { busModal } from '../main'; // уходит в modalWindow.vue
 
 export default {
-    name: 'modalWindow',
+    name: 'headerVue',
+    // данные
     data() {
         return {
             countBookmarks: 0,
-            busHeader
-        }
+            busHeader,
+        };
     },
+    // при обновлении/загрузке страницы
     mounted() {
+        // если есть данные в local storage, то забрать их
         if (localStorage.getItem('localStorageData')) {
             const arr = JSON.parse(localStorage.getItem('localStorageData'));
+            // определение количества книг добавленных в закладки
             this.countBookmarks = arr.filter((item) => item.bookmarksActive == true).length;
         }
     },
     methods: {
-        openModal() { // уходит в modalWindow.vue
-            busModal.$emit('openModal')
-        }
+        openModal() {
+            // событие click уходит в modalWindow.vue
+            busModal.$emit('openModal');
+        },
     },
+    // получить доступ к реактивным данным и активным событиям
     created() {
+        // обработка события click из mainItem.vue
         busHeader.$on('bookmarkMainСlick', (data) => {
+            // изменение счетчика книг добавленных в закладки
             if (data) {
                 this.countBookmarks++;
             } else {
                 this.countBookmarks--;
             }
-        })
-    }
+        });
+    },
 };
 </script>
 
@@ -76,6 +84,7 @@ header {
     align-items: center;
 }
 
+/* -------------------- */
 .info_block {
     display: flex;
     flex-direction: column;

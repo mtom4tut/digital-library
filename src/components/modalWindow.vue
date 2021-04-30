@@ -4,7 +4,12 @@
         <button class="modal-close" @click="isActive = false">
             <img src="@/images/modal-close.svg" alt="close" />
         </button>
-        <div class="block_goods" v-bind:class="{ isempty: isempty }" v-bind:arrayBook="localStorageBookmarks">
+
+        <div 
+            class="block_goods" 
+            v-bind:class="{ isempty: isempty }" 
+            v-bind:arrayBook="localStorageBookmarks"
+        >
             <modalWindowItem v-for="item of localStorageBookmarks" v-bind:key="item.id" v-bind:item="item" />
         </div>
     </section>
@@ -12,7 +17,7 @@
 
 <script>
 import modalWindowItem from '@/components/modalWindowItem';
-import { busModal } from '../main';
+import { busModal } from '../main'; // приходит событие click из headerVue.vue
 
 export default {
     name: 'modalWindow',
@@ -27,18 +32,22 @@ export default {
         };
     },
     created() {
+        // приходит события открытия модального окна закладок
         busModal.$on('openModal', () => {
             this.isActive = true;
         });
     },
     mounted() {
+        // считывание с последующим обновлением данных из local storage
         setInterval(() => {
             if (localStorage.getItem('localStorageData')) {
                 const arr = JSON.parse(localStorage.getItem('localStorageData'));
                 this.localStorageBookmarks = arr.filter((item) => item.bookmarksActive == true);
                 if (this.localStorageBookmarks.length > 0) {
+                    // если есть данные то убрать значок "пусто"
                     this.isempty = false;
                 } else {
+                    // если есть данные то добавить значок "пусто"
                     this.isempty = true;
                 }
             }
@@ -48,8 +57,8 @@ export default {
 </script>
 
 <style>
-/* !!!!!!!!!!!!!!! */
-/* common styles for modal windows */
+/* ---------------- */
+/* стили для модального окна */
 .section-modal {
     display: none;
     grid-template-rows: 13% 1fr;
@@ -69,6 +78,7 @@ export default {
     overflow: hidden;
 }
 
+/* класс который показывает модальное окно */
 .modalActive {
     display: grid;
 }
@@ -79,6 +89,8 @@ export default {
     background-color: #5ea64965;
 }
 
+/* ------------- */
+/* стили для кнопки закрыть модальное окно */
 .modal-close {
     width: 26px;
     height: 30px;
@@ -102,6 +114,7 @@ export default {
     transform: translateY(-3px);
 }
 
+/* контейнер для закладок */
 .block_goods {
     position: relative;
     padding: 20px;
@@ -109,6 +122,7 @@ export default {
     overflow-y: scroll;
 }
 
+/* добавляется если модальное окно с закладками пустое */
 .isempty {
     display: flex;
     justify-content: center;

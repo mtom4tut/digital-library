@@ -3,7 +3,7 @@ import App from './App.vue'
 
 Vue.config.productionTip = false
 
-// для получения собития добавлен в закладки
+// для получения собития добавления в закладки
 export const busHeader = new Vue();
 
 // для получения события открыть модальное окно

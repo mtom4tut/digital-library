@@ -1,6 +1,8 @@
 <template>
     <div class="mainItem">
-        <img :src="require(`../assets/images/${item.id}.jpg`)" alt="imgBook" class="border-radius"/>
+        <img class="border-radius" :src="require(`../assets/images/${item.id}.jpg`)" alt="imgBook" />
+        
+        <!-- данные о книге -->
         <div class="content_block">
             <h3>{{ item.nameBook }}</h3>
             <p>
@@ -28,6 +30,8 @@
                 {{ item.rating }}
             </p>
         </div>
+        
+        <!-- блок с кнопками: добавить в закладки, купить  -->
         <div class="btn_block">
             <button id="buy" aria-label="buy" :value="`${item.id}`">Купить</button>
             <button
@@ -42,6 +46,8 @@
                 <img src="../images/bookmark.png" alt="bookmark" />
             </button>
         </div>
+        
+        <!-- блок отвечающий за рейтинг -->
         <div
             class="rating_block"
             v-bind:class="{ rating_block_active: item.yourRating }"
@@ -70,21 +76,26 @@
 </template>
 
 <script>
-import { busHeader } from '../main'; // уходит
+import { busHeader } from '../main'; // уходит в headerVue.vue
 
 export default {
     name: 'mainItem',
+    // получаем данные в виде объекта
     props: {
         item: {
+            // item => { id, nameBook, author, publishingHouse, yearPublishing, 
+            // rating, price, bookmarksActive(bool), yourRating(bool) }
             type: Object,
             required: true,
         },
     },
     methods: {
+        // пересчет рейтинга
         itemRating(rating) {
             this.item.rating = Math.round(((Number(this.item.rating) + Number(rating))/2)*100)/100;
         },
-        bookmarkMainСlick() { // уходит в headerVue.vue
+
+        bookmarkMainСlick() { // событие click по #bookmarks уходит в headerVue.vue
             busHeader.$emit('bookmarkMainСlick', this.item.bookmarksActive)
         }
     }
@@ -106,7 +117,8 @@ export default {
     margin-bottom: 30px;
 
 }
-
+/* -------------- */
+/* стили изображения */
 img {
     width: 100%;
     height: 100%;
@@ -117,6 +129,8 @@ img {
     border-bottom-right-radius: 10px;
 }
 
+/* -------------- */
+/* стили для блока с данными о книге */
 .content_block {
     padding: 5px;
     padding-left: 10px;
@@ -133,6 +147,7 @@ p {
     align-items: center;
 }
 
+/* стили для кнопки купить */
 #buy {
     width: 100px;
     height: 30px;
@@ -146,6 +161,7 @@ p {
     transition: 0.2s;
 }
 
+/* стили для кнопки закладки */
 .bookmarks {
     height: 30px;
     width: 26px;
@@ -157,11 +173,13 @@ p {
     background-color: #50a43430;
 }
 
+/* добавится/уберется при клике на кнопку закладки */
 .bookmarks_active {
     background: linear-gradient(90deg, #3f435a, #24c07a);
 }
 
-/* rating block */
+/* -------------- */
+/* стили для блока рейтинга */
 .rating_block {
     padding-top: 15px;
     padding-left: 10px;

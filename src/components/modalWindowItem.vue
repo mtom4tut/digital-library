@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { busRemove } from '../main';
+import { busRemove } from '../main'; // уходит mainVue.vue при клике на кнопку удаления
 // import data
 import arrayBook from '@/json/arrayBook.json';
 
@@ -36,7 +36,7 @@ export default {
                 .map(function(e) {
                     return e.id;
                 })
-                .indexOf(this.item.id);
+                .indexOf(this.item.id); // поиск индекса
         },
         removeBookmarks() {
             // уходит в mainVue.vue
@@ -69,6 +69,7 @@ img {
     height: 100%;
 }
 
+/* стили кнопки удаления */
 .imgTrash {
     position: absolute;
     right: 20px;

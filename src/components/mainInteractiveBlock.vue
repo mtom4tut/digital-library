@@ -1,6 +1,8 @@
 <template>
     <div class="interactive_block">
+        <!-- блок: поиск, сортировка, реверс -->
         <div>
+            <!-- поиск книг -->
             <input
                 type="text"
                 name="searchBook"
@@ -9,6 +11,7 @@
                 v-model="searchText"
             />
 
+            <!-- сортировка -->
             <span>Сортировать по:</span>
             <select name="filterSort" v-model="filterSort">
                 <option value="Алфавиту">Алфавиту</option>
@@ -16,6 +19,7 @@
                 <option value="Дате">Дате</option>
             </select>
 
+            <!-- реверс -->
             <button
                 aria-label="direction-sort"
                 v-bind:class="{ inverse: isActiveInverse }"
@@ -25,7 +29,9 @@
             </button>
         </div>
 
+        <!-- фильтры -->
         <div>
+            <!-- фильтер по издательству -->
             <span>Издательство:</span>
             <select
                 name="filterPublishingHouse"
@@ -39,11 +45,13 @@
                 />
             </select>
 
+            <!-- фильтер по автору -->
             <span>Автор:</span>
             <select name="filterAuthor" v-bind:arrayAuthor="arrayAuthor" v-model="filterAuthor">
                 <mainOptionItem v-for="item of arrayAuthor" v-bind:key="item.id" v-bind:item="item" />
             </select>
 
+             <!-- фильтер по году издания -->
             <span>Год:</span>
             <select name="filterYear" v-bind:arrayYear="arrayYear" v-model="filterYear">
                 <mainOptionItem v-for="item of arrayYear" v-bind:key="item.id" v-bind:item="item" />
@@ -54,15 +62,19 @@
 
 <script>
 import mainOptionItem from '@/components/mainOptionItem';
-// import data
+
+// import data --------------
+// массив издательств
 import arrayPublishingHouse from '@/json/arrayPublishingHouse.json';
+// массив авторов
 import arrayAuthor from '@/json/arrayAuthor.json';
+// массив годов
 import arrayYear from '@/json/arrayYear.json';
 
 export default {
     name: 'mainVue',
     components: {
-        mainOptionItem,
+        mainOptionItem, // option для select
     },
     data() {
         return {
@@ -77,7 +89,9 @@ export default {
             searchText: '',
         };
     },
+    // следить за изменением следующих событий
     watch: {
+        // при сробатовании данные отправляются в родительский элемент (mainVue.vue)
         filterAuthor(value) {
             this.$parent.filterAuthor = value;
         },
@@ -113,6 +127,8 @@ div {
     margin: 10px 0;
 }
 
+/* ------------- */
+/* стили для поиска */
 input {
     width: 250px;
     border: 2px solid #5ea649;
@@ -124,6 +140,8 @@ input:focus {
     background-color: #5ea64930;
 }
 
+/* ------------- */
+/* общие стили */
 span {
     margin: 0 15px;
     font-weight: 600;
@@ -151,8 +169,7 @@ button:hover {
     border-color: #888;
 }
 
-/* a class for a button showing the change in 
-the sorting direction: from smallest to largest */
+/* класс добавляется/убирается при нажатии кнопки реверса*/
 .inverse {
     transform: rotate(180deg);
 }

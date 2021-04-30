@@ -8,7 +8,3 @@ export default {
     props: ['item'],
 };
 </script>
-
-<style scoped>
-
-</style>
