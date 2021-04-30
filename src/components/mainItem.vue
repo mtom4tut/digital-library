@@ -1,7 +1,7 @@
 <template>
     <div class="mainItem">
         <img class="border-radius" :src="require(`../assets/images/${item.id}.jpg`)" alt="imgBook" />
-        
+
         <!-- данные о книге -->
         <div class="content_block">
             <h3>{{ item.nameBook }}</h3>
@@ -30,7 +30,7 @@
                 {{ item.rating }}
             </p>
         </div>
-        
+
         <!-- блок с кнопками: добавить в закладки, купить  -->
         <div class="btn_block">
             <button id="buy" aria-label="buy" :value="`${item.id}`">Купить</button>
@@ -46,28 +46,55 @@
                 <img src="../images/bookmark.png" alt="bookmark" />
             </button>
         </div>
-        
+
         <!-- блок отвечающий за рейтинг -->
         <div
             class="rating_block"
             v-bind:class="{ rating_block_active: item.yourRating }"
             v-on:click="item.yourRating = true"
+            @click="$emit('updateRatingSort')"
         >
             <b class="estimate">Оценить:</b>
             <div class="rating-area" :value="`${item.id}`" v-on:click="$emit('rating-click')">
-                <input type="radio" :id="`star-5-${item.id}id`" name="rating" value="5" @click="itemRating(5)"/>
+                <input
+                    type="radio"
+                    :id="`star-5-${item.id}id`"
+                    name="rating"
+                    value="5"
+                    @click="itemRating(5)"
+                />
                 <label :for="`star-5-${item.id}id`"></label>
-                <input type="radio" :id="`star-4-${item.id}id`" name="rating" value="4" 
-                @click="itemRating(4)"/>
+                <input
+                    type="radio"
+                    :id="`star-4-${item.id}id`"
+                    name="rating"
+                    value="4"
+                    @click="itemRating(4)"
+                />
                 <label :for="`star-4-${item.id}id`"></label>
-                <input type="radio" :id="`star-3-${item.id}id`" name="rating" value="3" 
-                @click="itemRating(3)"/>
+                <input
+                    type="radio"
+                    :id="`star-3-${item.id}id`"
+                    name="rating"
+                    value="3"
+                    @click="itemRating(3)"
+                />
                 <label :for="`star-3-${item.id}id`"></label>
-                <input type="radio" :id="`star-2-${item.id}id`" name="rating" value="2" 
-                @click="itemRating(2)"/>
+                <input
+                    type="radio"
+                    :id="`star-2-${item.id}id`"
+                    name="rating"
+                    value="2"
+                    @click="itemRating(2)"
+                />
                 <label :for="`star-2-${item.id}id`"></label>
-                <input type="radio" :id="`star-1-${item.id}id`" name="rating" value="1" 
-                @click="itemRating(1)"/>
+                <input
+                    type="radio"
+                    :id="`star-1-${item.id}id`"
+                    name="rating"
+                    value="1"
+                    @click="itemRating(1)"
+                />
                 <label :for="`star-1-${item.id}id`"></label>
             </div>
             <b class="thank">Спасибо за отзыв!</b>
@@ -83,7 +110,7 @@ export default {
     // получаем данные в виде объекта
     props: {
         item: {
-            // item => { id, nameBook, author, publishingHouse, yearPublishing, 
+            // item => { id, nameBook, author, publishingHouse, yearPublishing,
             // rating, price, bookmarksActive(bool), yourRating(bool) }
             type: Object,
             required: true,
@@ -92,13 +119,14 @@ export default {
     methods: {
         // пересчет рейтинга
         itemRating(rating) {
-            this.item.rating = Math.round(((Number(this.item.rating) + Number(rating))/2)*100)/100;
+            this.item.rating = Math.round(((Number(this.item.rating) + Number(rating)) / 2) * 100) / 100;
         },
 
-        bookmarkMainСlick() { // событие click по #bookmarks уходит в headerVue.vue
-            busHeader.$emit('bookmarkMainСlick', this.item.bookmarksActive)
-        }
-    }
+        bookmarkMainСlick() {
+            // событие click по #bookmarks уходит в headerVue.vue
+            busHeader.$emit('bookmarkMainСlick', this.item.bookmarksActive);
+        },
+    },
 };
 </script>
 
@@ -115,7 +143,6 @@ export default {
     overflow: hidden;
     margin: 0 auto;
     margin-bottom: 30px;
-
 }
 /* -------------- */
 /* стили изображения */

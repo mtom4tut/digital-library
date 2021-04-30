@@ -22,8 +22,8 @@
             <!-- реверс -->
             <button
                 aria-label="direction-sort"
-                v-bind:class="{ inverse: isActiveInverse }"
-                v-on:click="isActiveInverse = !isActiveInverse"
+                v-bind:class="{ inverse: isActiveReverse }"
+                v-on:click="isActiveReverse = !isActiveReverse"
             >
                 <img src="../images/arrow.png" alt="arrow" />
             </button>
@@ -81,7 +81,7 @@ export default {
             arrayPublishingHouse,
             arrayAuthor,
             arrayYear,
-            isActiveInverse: true,
+            isActiveReverse: false,
             filterPublishingHouse: 'Все',
             filterAuthor: 'Все',
             filterYear: 'Все',
@@ -107,8 +107,8 @@ export default {
         searchText(value) {
             this.$parent.searchText = value;
         },
-        isActiveInverse() {
-            this.$parent.isActiveInverse = this.isActiveInverse;
+        isActiveReverse(value) {
+            this.$parent.isActiveReverse = value;
         },
     },
 };
@@ -124,6 +124,8 @@ export default {
 }
 
 div {
+    display: flex;
+    align-items: center;
     margin: 10px 0;
 }
 
@@ -159,7 +161,7 @@ button {
     background-color: transparent;
     border: 1px solid #5ea649;
     border-radius: 5px;
-    margin: 15px;
+    margin: 0 15px;
     padding: 10px;
 }
 

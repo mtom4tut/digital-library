@@ -51,7 +51,7 @@ export default {
                     this.isempty = true;
                 }
             }
-        }, 1000);
+        }, 200);
     },
 };
 </script>

@@ -4,7 +4,12 @@
         <mainInteractiveBlock />
 
         <!-- блок с выводом карточек книг -->
-        <div class="main_blockItems" v-bind:arrayBook="filterFunction" @click="persist">
+        <div
+            class="main_blockItems"
+            v-bind:arrayBook="filterFunction"
+            @click="persist"
+            v-on:updateRatingSort="this.filterSortFunction"
+        >
             <mainItem v-for="item of filterFunction" v-bind:key="item.id" v-bind:item="item" />
         </div>
     </main>
@@ -16,7 +21,6 @@ import mainItem from '@/components/mainItem';
 import { busRemove } from '../main'; // событие удаления закладки, приходит из modalWindow.vue
 // import data
 import arrayBook from '@/json/arrayBook.json';
-
 export default {
     name: 'mainVue',
     components: {
@@ -33,7 +37,7 @@ export default {
             filterYear: 'Все',
             filterSort: 'Алфавиту',
             searchText: '',
-            isActiveInverse: true,
+            isActiveReverse: false,
         };
     },
     // вычисляемые свойства
@@ -41,61 +45,50 @@ export default {
         // фильтрация и поиск
         filterFunction() {
             let arr = this.arrayBook;
-
             //фильтрация по автору
             if (this.filterAuthor !== 'Все') {
                 arr = arr.filter((item) => item.author == this.filterAuthor);
             }
-
             //фильтрация по издательству
             if (this.filterPublishingHouse !== 'Все') {
                 arr = arr.filter((item) => item.publishingHouse == this.filterPublishingHouse);
             }
-
             //фильтрация по году
             if (this.filterYear !== 'Все') {
                 arr = arr.filter((item) => item.yearPublishing == this.filterYear);
             }
-
             // фильтрация по поиску
             if (this.searchText !== '') {
                 arr = arr.filter(
                     (item) =>
                         item.nameBook
-                            .slice(0, this.searchText.length) // обрезать слово 
+                            .slice(0, this.searchText.length) // обрезать слово
                             .toLowerCase() // привести к нижнему регистру
                             .search(this.searchText.toLowerCase()) != -1 // поиск подстроки в строке
                 );
             }
 
+            if (this.isActiveReverse) {
+                arr = arr.slice().reverse();
+            }
+            
             return arr;
         },
-        // сортировка 
+        // сортировка
         filterSortFunction() {
             let arr = this.arrayBook;
             // сортировка по алфавиту
             if (this.filterSort == 'Алфавиту') {
                 arr = arr.sort((i, j) => (i.nameBook > j.nameBook ? 1 : -1));
             }
-
             // сортировка по рейтингу
             if (this.filterSort == 'Рейтингу') {
                 arr = arr.sort((i, j) => (i.rating > j.rating ? 1 : -1));
             }
-
             // сортировка по дате
             if (this.filterSort == 'Дате') {
                 arr = arr.sort((i, j) => (i.yearPublishing > j.yearPublishing ? 1 : -1));
             }
-
-            return arr;
-        },
-        // инвертирование 
-        filterInverseFunction() {
-            // инвертировать массив
-            let arr = this.arrayBook;
-            this.isActiveInverse; // регистрируем изменение
-            arr = arr.reverse();
             return arr;
         },
     },
@@ -104,16 +97,15 @@ export default {
             // сортировка при изменения способа сортировки
             this.filterSortFunction;
         },
-        isActiveInverse() {
-            // инвертирование при клике
-            this.filterInverseFunction;
+        isActiveReverse() {
+            // реверс при клике
+            this.filterFunction;
         },
     },
     methods: {
         // добавление/обновление данных в local storage
         // добавление/обновление происходит при клике в main_blockItems
         persist() {
-            this.filterSortFunction;
             this.localStorageData = [];
             for (const item of this.arrayBook) {
                 if (item.bookmarksActive || item.yourRating) {
@@ -125,7 +117,6 @@ export default {
                     });
                 }
             }
-
             const parsed = JSON.stringify(this.localStorageData);
             localStorage.setItem('localStorageData', parsed);
         },
@@ -133,9 +124,9 @@ export default {
     mounted() {
         //отсортировать при загрузке страницы
         this.filterSortFunction;
-
         // получить данных из local storage
-        if (localStorage.getItem('localStorageData')) { // проверка наличиия данных 
+        if (localStorage.getItem('localStorageData')) {
+            // проверка наличиия данных
             this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'));
             for (const item of this.localStorageData) {
                 let index = this.arrayBook
@@ -150,7 +141,7 @@ export default {
         }
     },
     created() {
-        // обработка события удаления из закладок 
+        // обработка события удаления из закладок
         // приходит из modalWindow.vue
         busRemove.$on('removeBookmarks', (index) => {
             let id = this.arrayBook
@@ -171,7 +162,6 @@ main {
     margin: 0 auto;
     margin-top: 50px;
 }
-
 .main_blockItems {
     width: 100%;
     display: flex;
