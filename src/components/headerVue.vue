@@ -10,13 +10,48 @@
                     <button id="basket">Корзина:</button> <span id="basket_num">0</span>
                 </div>
 
-                <div class="info_item">
-                    <button id="bookmarks">Закладки:</button> <span id="bookmarks_num">0</span>
+                <div class="info_item" v-on:click="openModal()">
+                    <button id="bookmarks">Закладки:</button>
+                    <span id="bookmarks_num">{{countBookmarks}}</span>
                 </div>
             </div>
         </div>
     </header>
 </template>
+
+<script>
+import { busHeader } from '../main';
+import { busModal } from '../main';
+
+export default {
+    name: 'modalWindow',
+    data() {
+        return {
+            countBookmarks: 0,
+            busHeader
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('localStorageData')) {
+            this.countBookmarks = JSON.parse(localStorage.getItem('localStorageData')).length;
+        }
+    },
+    methods: {
+        openModal() {
+            busModal.$emit('openModal')
+        }
+    },
+    created() {
+        busHeader.$on('bookmarkMainСlick', (data) => {
+            if (data) {
+                this.countBookmarks++;
+            } else {
+                this.countBookmarks--;
+            }
+        })
+    }
+};
+</script>
 
 <style scoped>
 header {

@@ -27,47 +27,74 @@ export default {
             filterPublishingHouse: 'Все',
             filterAuthor: 'Все',
             filterYear: 'Все',
-            filterSort: 'Алфавит',
+            filterSort: 'Алфавиту',
             searchText: '',
+            isActiveInverse: true,
         };
     },
     computed: {
         filterFunction() {
-            // if (
-            //     // все
-            //     this.filterAuthor == 'Все' &&
-            //     this.filterPublishingHouse == 'Все' &&
-            //     this.searchText == '' &&
-            //     this.filterYear == 'Все'
-            // ) {
-            //     return this.arrayBook;
-            // } else if (
-            //     // по автору
-            //     this.filterPublishingHouse == 'Все' &&
-            //     this.searchText == '' &&
-            //     this.filterYear == 'Все'
-            // ) {
-            //     return this.arrayBook.filter((item) => item.author == this.filterAuthor);
-            // } else if (
-            //     // по издательству
-            //     this.filterAuthor == 'Все' &&
-            //     this.searchText == '' &&
-            //     this.filterYear == 'Все'
-            // ) {
-            //     return this.arrayBook.filter((item) => item.publishingHouse == this.filterPublishingHouse);
-            // } else if (
-            //     // по году
-            //     this.filterAuthor == 'Все' &&
-            //     this.searchText == '' &&
-            //     this.filterPublishingHouse == 'Все'
-            // ) {
-            //     return this.arrayBook.filter((item) => item.yearPublishing == this.filterYear);
-            // }
+            let arr = this.arrayBook;
+
+            //фильтрация по автору
+            if (this.filterAuthor !== 'Все') {
+                arr = arr.filter((item) => item.author == this.filterAuthor);
+            }
+
+            //фильтрация по издательству
+            if (this.filterPublishingHouse !== 'Все') {
+                arr = arr.filter((item) => item.publishingHouse == this.filterPublishingHouse);
+            }
+
+            //фильтрация по издательству
+            if (this.filterYear !== 'Все') {
+                arr = arr.filter((item) => item.yearPublishing == this.filterYear);
+            }
+
+            // фильтрация по поиску
+            if (this.searchText !== '') {
+                arr = arr.filter(
+                    (item) =>
+                        item.nameBook
+                            .slice(0, this.searchText.length)
+                            .toLowerCase()
+                            .search(this.searchText.toLowerCase()) != -1
+                );
+            }
+
+            return arr;
+        },
+        filterSortFunction() {
+            let arr = this.arrayBook;
+            if (this.filterSort == 'Алфавиту') {
+                arr = arr.sort((i, j) => (i.nameBook > j.nameBook ? 1 : -1));
+            }
+
+            if (this.filterSort == 'Рейтингу') {
+                arr = arr.sort((i, j) => (i.rating > j.rating ? 1 : -1));
+            }
+            return arr;
+        },
+        filterInverseFunction() {
+            // инвертировать массив
+            let arr = this.arrayBook;
+            this.isActiveInverse; // регистрируем изменение 
+            arr = arr.reverse();
+            return arr
+        },
+    },
+    watch: {
+        filterSort() {
+            // сортировка при изменения способа сортировки
+            this.filterSortFunction;
+        },
+        isActiveInverse() { // инвертирование при клике
+            this.filterInverseFunction;
         },
     },
     methods: {
         persist() {
-            console.log(this.filterAuthor);
+            this.filterSortFunction;
             this.localStorageData = [];
             for (const item of this.arrayBook) {
                 if (item.bookmarksActive || item.yourRating) {
@@ -83,11 +110,11 @@ export default {
             const parsed = JSON.stringify(this.localStorageData);
             localStorage.setItem('localStorageData', parsed);
         },
-        filterAuthorFunction: function($event) {
-            console.log($event);
-        },
     },
     mounted() {
+        //отсортировать при загрузке страницы
+        this.filterSortFunction;
+
         if (localStorage.getItem('localStorageData')) {
             this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'));
             for (const item of this.localStorageData) {

@@ -1,7 +1,7 @@
 <template>
-    <section class="section-modal">
+    <section class="section-modal" v-bind:class="{ modalActive: isActive }">
         <h2 class="modal-title">Закладки</h2>
-        <button class="modal-close">
+        <button class="modal-close"  @click="isActive = false">
             <img src="@/images/modal-close.svg" alt="close" />
         </button>
         <div class="block_goods isempty">
@@ -12,12 +12,23 @@
 
 <script>
 import modalWindowItem from '@/components/modalWindowItem';
+import { busModal } from '../main';
 
 export default {
     name: 'modalWindow',
     components: {
         modalWindowItem,
     },
+    data() {
+        return {
+            isActive: false
+        }
+    },
+    created() {
+        busModal.$on('openModal', () => {
+            this.isActive = true;
+        })
+    }
 };
 </script>
 
@@ -25,7 +36,7 @@ export default {
 /* !!!!!!!!!!!!!!! */
 /* common styles for modal windows */
 .section-modal {
-    display: grid;
+    display: none;
     grid-template-rows: 13% 1fr;
     width: 510px;
     height: 500px;
@@ -41,6 +52,10 @@ export default {
     -moz-box-shadow: 0px 4px 20px #5ea64965;
     box-shadow: 0px 4px 20px #5ea64965;
     overflow: hidden;
+}
+
+.modalActive {
+    display: grid;
 }
 
 .modal-title {

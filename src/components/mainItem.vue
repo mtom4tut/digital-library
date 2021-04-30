@@ -36,7 +36,8 @@
                 aria-label="bookmarks"
                 :value="`${item.id}`"
                 v-bind:class="{ bookmarks_active: item.bookmarksActive }"
-                v-on:click="item.bookmarksActive = !item.bookmarksActive"
+                @click="item.bookmarksActive = !item.bookmarksActive"
+                v-on:click="bookmarkMainСlick()"
             >
                 <img src="../images/bookmark.png" alt="bookmark" />
             </button>
@@ -47,20 +48,20 @@
             v-on:click="item.yourRating = true"
         >
             <b class="estimate">Оценить:</b>
-            <div class="rating-area" :value="`${item.id}`">
-                <input type="radio" :id="`star-5-${item.id}id`" name="rating" value="5" v-on:click="itemRating(5)"/>
+            <div class="rating-area" :value="`${item.id}`" v-on:click="$emit('rating-click')">
+                <input type="radio" :id="`star-5-${item.id}id`" name="rating" value="5" @click="itemRating(5)"/>
                 <label :for="`star-5-${item.id}id`"></label>
                 <input type="radio" :id="`star-4-${item.id}id`" name="rating" value="4" 
-                v-on:click="itemRating(4)"/>
+                @click="itemRating(4)"/>
                 <label :for="`star-4-${item.id}id`"></label>
                 <input type="radio" :id="`star-3-${item.id}id`" name="rating" value="3" 
-                v-on:click="itemRating(3)"/>
+                @click="itemRating(3)"/>
                 <label :for="`star-3-${item.id}id`"></label>
                 <input type="radio" :id="`star-2-${item.id}id`" name="rating" value="2" 
-                v-on:click="itemRating(2)"/>
+                @click="itemRating(2)"/>
                 <label :for="`star-2-${item.id}id`"></label>
                 <input type="radio" :id="`star-1-${item.id}id`" name="rating" value="1" 
-                v-on:click="itemRating(1)"/>
+                @click="itemRating(1)"/>
                 <label :for="`star-1-${item.id}id`"></label>
             </div>
             <b class="thank">Спасибо за отзыв!</b>
@@ -69,6 +70,8 @@
 </template>
 
 <script>
+import { busHeader } from '../main';
+
 export default {
     name: 'mainItem',
     props: {
@@ -80,6 +83,9 @@ export default {
     methods: {
         itemRating(rating) {
             this.item.rating = Math.round(((Number(this.item.rating) + Number(rating))/2)*100)/100;
+        },
+        bookmarkMainСlick() {
+            busHeader.$emit('bookmarkMainСlick', this.item.bookmarksActive)
         }
     }
 };

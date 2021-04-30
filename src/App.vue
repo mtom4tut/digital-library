@@ -3,7 +3,7 @@
         <headerVue />
         <mainVue/>
         <!-- modal window -->
-        <!-- <modalWindow /> -->
+        <modalWindow />
     </div>
 </template>
 

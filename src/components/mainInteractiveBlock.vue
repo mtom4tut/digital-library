@@ -92,6 +92,9 @@ export default {
         searchText(value) {
             this.$parent.searchText = value;
         },
+        isActiveInverse() {
+            this.$parent.isActiveInverse = this.isActiveInverse;
+        },
     },
 };
 </script>
