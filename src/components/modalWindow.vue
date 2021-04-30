@@ -38,6 +38,8 @@ export default {
                 this.localStorageBookmarks = arr.filter((item) => item.bookmarksActive == true);
                 if (this.localStorageBookmarks.length > 0) {
                     this.isempty = false;
+                } else {
+                    this.isempty = true;
                 }
             }
         }, 1000);
