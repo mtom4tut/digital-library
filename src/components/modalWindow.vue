@@ -32,15 +32,15 @@ export default {
         });
     },
     mounted() {
-        if (localStorage.getItem('localStorageData')) {
-            setInterval(() => {
+        setInterval(() => {
+            if (localStorage.getItem('localStorageData')) {
                 const arr = JSON.parse(localStorage.getItem('localStorageData'));
                 this.localStorageBookmarks = arr.filter((item) => item.bookmarksActive == true);
                 if (this.localStorageBookmarks.length > 0) {
                     this.isempty = false;
                 }
-            }, 1000);
-        }
+            }
+        }, 1000);
     },
 };
 </script>
