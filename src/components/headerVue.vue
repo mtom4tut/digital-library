@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { busHeader } from '../main'; // приходит из mainItem.vue
+import { busHeader } from '../main'; // приходит из mainItem.vue и из modalWindow.vue
 import { busModal } from '../main'; // уходит в modalWindow.vue
 
 export default {
@@ -57,6 +57,10 @@ export default {
             } else {
                 this.countBookmarks--;
             }
+        });
+        busHeader.$on('bookmarkRemoveModalWindow', (data) => {
+            // изменение счетчика при удалении из модального окна закладок
+            this.countBookmarks--;
         });
     },
 };

@@ -14,6 +14,7 @@
 
 <script>
 import { busRemove } from '../main'; // уходит mainVue.vue при клике на кнопку удаления
+import { busHeader } from '../main'; // уходит в headerVue.vue при удалении закладки
 // import data
 import arrayBook from '@/json/arrayBook.json';
 
@@ -41,6 +42,8 @@ export default {
         removeBookmarks() {
             // уходит в mainVue.vue
             busRemove.$emit('removeBookmarks', this.item.id);
+            // уходит в headerVue.vue
+            busHeader.$emit('bookmarkRemoveModalWindow');
         },
     },
 };
