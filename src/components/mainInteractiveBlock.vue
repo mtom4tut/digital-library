@@ -13,6 +13,7 @@
             <select name="filterSort" v-model="filterSort">
                 <option value="Алфавиту">Алфавиту</option>
                 <option value="Рейтингу">Рейтингу</option>
+                <option value="Дате">Дате</option>
             </select>
 
             <button

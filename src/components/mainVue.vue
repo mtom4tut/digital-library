@@ -74,6 +74,10 @@ export default {
             if (this.filterSort == 'Рейтингу') {
                 arr = arr.sort((i, j) => (i.rating > j.rating ? 1 : -1));
             }
+
+            if (this.filterSort == 'Дате') {
+                arr = arr.sort((i, j) => (i.rating > j.rating ? 1 : -1));
+            }
             return arr;
         },
         filterInverseFunction() {
