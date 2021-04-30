@@ -10,7 +10,7 @@
 <script>
 import mainInteractiveBlock from '@/components/mainInteractiveBlock';
 import mainItem from '@/components/mainItem';
-
+import { busRemove } from '../main';
 // import data
 import arrayBook from '@/json/arrayBook.json';
 
@@ -19,10 +19,11 @@ export default {
     components: {
         mainInteractiveBlock,
         mainItem,
+        busRemove,
     },
     data() {
         return {
-            arrayBook: arrayBook,
+            arrayBook,
             localStorageData: [],
             filterPublishingHouse: 'Все',
             filterAuthor: 'Все',
@@ -78,9 +79,9 @@ export default {
         filterInverseFunction() {
             // инвертировать массив
             let arr = this.arrayBook;
-            this.isActiveInverse; // регистрируем изменение 
+            this.isActiveInverse; // регистрируем изменение
             arr = arr.reverse();
-            return arr
+            return arr;
         },
     },
     watch: {
@@ -88,7 +89,8 @@ export default {
             // сортировка при изменения способа сортировки
             this.filterSortFunction;
         },
-        isActiveInverse() { // инвертирование при клике
+        isActiveInverse() {
+            // инвертирование при клике
             this.filterInverseFunction;
         },
     },
@@ -129,6 +131,18 @@ export default {
             }
         }
     },
+    created() {
+        busRemove.$on('removeBookmarks', (index) => {
+            let id = this.arrayBook
+                .map(function(e) {
+                    return e.id;
+                })
+                .indexOf(index);
+            this.arrayBook[id].bookmarksActive = false;
+            console.log(this.arrayBook);
+            this.persist();
+        });
+    },
 };
 </script>
 
@@ -142,7 +156,6 @@ main {
 .main_blockItems {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
 }
 </style>

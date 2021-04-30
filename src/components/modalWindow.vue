@@ -1,11 +1,11 @@
 <template>
     <section class="section-modal" v-bind:class="{ modalActive: isActive }">
         <h2 class="modal-title">Закладки</h2>
-        <button class="modal-close"  @click="isActive = false">
+        <button class="modal-close" @click="isActive = false">
             <img src="@/images/modal-close.svg" alt="close" />
         </button>
-        <div class="block_goods isempty">
-            <!-- <modalWindowItem /> -->
+        <div class="block_goods" v-bind:class="{ isempty: isempty }" v-bind:arrayBook="localStorageBookmarks">
+            <modalWindowItem v-for="item of localStorageBookmarks" v-bind:key="item.id" v-bind:item="item" />
         </div>
     </section>
 </template>
@@ -21,14 +21,27 @@ export default {
     },
     data() {
         return {
-            isActive: false
-        }
+            isActive: false,
+            isempty: true,
+            localStorageBookmarks: [],
+        };
     },
     created() {
         busModal.$on('openModal', () => {
             this.isActive = true;
-        })
-    }
+        });
+    },
+    mounted() {
+        if (localStorage.getItem('localStorageData')) {
+            setInterval(() => {
+                const arr = JSON.parse(localStorage.getItem('localStorageData'));
+                this.localStorageBookmarks = arr.filter((item) => item.bookmarksActive == true);
+                if (this.localStorageBookmarks.length > 0) {
+                    this.isempty = false;
+                }
+            }, 1000);
+        }
+    },
 };
 </script>
 
@@ -90,6 +103,7 @@ export default {
 .block_goods {
     position: relative;
     padding: 20px;
+    overflow: hidden;
     overflow-y: scroll;
 }
 

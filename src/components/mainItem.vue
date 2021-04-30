@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { busHeader } from '../main';
+import { busHeader } from '../main'; // уходит
 
 export default {
     name: 'mainItem',
@@ -84,7 +84,7 @@ export default {
         itemRating(rating) {
             this.item.rating = Math.round(((Number(this.item.rating) + Number(rating))/2)*100)/100;
         },
-        bookmarkMainСlick() {
+        bookmarkMainСlick() { // уходит в headerVue.vue
             busHeader.$emit('bookmarkMainСlick', this.item.bookmarksActive)
         }
     }
@@ -102,7 +102,9 @@ export default {
     grid-template-columns: 60% 1fr;
     grid-template-rows: 80% 1fr;
     overflow: hidden;
+    margin: 0 auto;
     margin-bottom: 30px;
+
 }
 
 img {

@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import { busHeader } from '../main';
-import { busModal } from '../main';
+import { busHeader } from '../main'; // приходит
+import { busModal } from '../main'; // уходит
 
 export default {
     name: 'modalWindow',
@@ -33,11 +33,12 @@ export default {
     },
     mounted() {
         if (localStorage.getItem('localStorageData')) {
-            this.countBookmarks = JSON.parse(localStorage.getItem('localStorageData')).length;
+            const arr = JSON.parse(localStorage.getItem('localStorageData'));
+            this.countBookmarks = arr.filter((item) => item.bookmarksActive == true).length;
         }
     },
     methods: {
-        openModal() {
+        openModal() { // уходит в modalWindow.vue
             busModal.$emit('openModal')
         }
     },
