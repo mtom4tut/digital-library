@@ -76,7 +76,7 @@ export default {
             }
 
             if (this.filterSort == 'Дате') {
-                arr = arr.sort((i, j) => (i.rating > j.rating ? 1 : -1));
+                arr = arr.sort((i, j) => (i.yearPublishing > j.yearPublishing ? 1 : -1));
             }
             return arr;
         },
