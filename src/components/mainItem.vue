@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { busHeader } from '../main'; // уходит в headerVue.vue
+import { busEvent } from '../main'; // уходит в headerVue.vue
 
 export default {
     name: 'mainItem',
@@ -124,7 +124,7 @@ export default {
 
         bookmarkMainСlick() {
             // событие click по #bookmarks уходит в headerVue.vue
-            busHeader.$emit('bookmarkMainСlick', this.item.bookmarksActive);
+            busEvent.$emit('bookmarkMainСlick', this.item.bookmarksActive);
         },
     },
 };

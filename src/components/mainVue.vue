@@ -18,7 +18,7 @@
 <script>
 import mainInteractiveBlock from '@/components/mainInteractiveBlock';
 import mainItem from '@/components/mainItem';
-import { busRemove } from '../main'; // событие удаления закладки, приходит из modalWindow.vue
+import { busEvent } from '../main'; // событие удаления закладки, приходит из modalWindow.vue
 // import data
 import arrayBook from '@/json/arrayBook.json';
 export default {
@@ -26,7 +26,7 @@ export default {
     components: {
         mainInteractiveBlock,
         mainItem,
-        busRemove,
+        busEvent,
     },
     data() {
         return {
@@ -71,7 +71,7 @@ export default {
             if (this.isActiveReverse) {
                 arr = arr.slice().reverse();
             }
-            
+
             return arr;
         },
         // сортировка
@@ -143,7 +143,7 @@ export default {
     created() {
         // обработка события удаления из закладок
         // приходит из modalWindow.vue
-        busRemove.$on('removeBookmarks', (index) => {
+        busEvent.$on('removeBookmarks', (index) => {
             let id = this.arrayBook
                 .map(function(e) {
                     return e.id;
@@ -158,7 +158,7 @@ export default {
 
 <style scoped>
 main {
-    width: 85%;
+    width: 1180px;
     margin: 0 auto;
     margin-top: 50px;
 }

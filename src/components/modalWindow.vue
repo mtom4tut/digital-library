@@ -5,11 +5,7 @@
             <img src="@/images/modal-close.svg" alt="close" />
         </button>
 
-        <div 
-            class="block_goods" 
-            v-bind:class="{ isempty: isempty }" 
-            v-bind:arrayBook="localStorageBookmarks"
-        >
+        <div class="block_goods" v-bind:class="{ isempty: isempty }" v-bind:arrayBook="localStorageBookmarks">
             <modalWindowItem v-for="item of localStorageBookmarks" v-bind:key="item.id" v-bind:item="item" />
         </div>
     </section>
@@ -17,7 +13,7 @@
 
 <script>
 import modalWindowItem from '@/components/modalWindowItem';
-import { busModal } from '../main'; // приходит событие click из headerVue.vue
+import { busEvent } from '../main'; // приходит событие click из headerVue.vue
 
 export default {
     name: 'modalWindow',
@@ -33,7 +29,7 @@ export default {
     },
     created() {
         // приходит события открытия модального окна закладок
-        busModal.$on('openModal', () => {
+        busEvent.$on('openModal', () => {
             this.isActive = true;
         });
     },

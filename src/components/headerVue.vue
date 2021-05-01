@@ -20,8 +20,7 @@
 </template>
 
 <script>
-import { busHeader } from '../main'; // приходит из mainItem.vue и из modalWindow.vue
-import { busModal } from '../main'; // уходит в modalWindow.vue
+import { busEvent } from '../main'; // приходит из mainItem.vue и из modalWindow.vue, уходит в modalWindow.vue
 
 export default {
     name: 'headerVue',
@@ -29,7 +28,7 @@ export default {
     data() {
         return {
             countBookmarks: 0,
-            busHeader,
+            busEvent,
         };
     },
     // при обновлении/загрузке страницы
@@ -44,13 +43,13 @@ export default {
     methods: {
         openModal() {
             // событие click уходит в modalWindow.vue
-            busModal.$emit('openModal');
+            busEvent.$emit('openModal');
         },
     },
     // получить доступ к реактивным данным и активным событиям
     created() {
         // обработка события click из mainItem.vue
-        busHeader.$on('bookmarkMainСlick', (data) => {
+        busEvent.$on('bookmarkMainСlick', (data) => {
             // изменение счетчика книг добавленных в закладки
             if (data) {
                 this.countBookmarks++;
@@ -58,7 +57,7 @@ export default {
                 this.countBookmarks--;
             }
         });
-        busHeader.$on('bookmarkRemoveModalWindow', (data) => {
+        busEvent.$on('bookmarkRemoveModalWindow', (data) => {
             // изменение счетчика при удалении из модального окна закладок
             this.countBookmarks--;
         });
@@ -81,7 +80,7 @@ header {
 }
 
 .header_content {
-    width: 85%;
+    width: 1180px;
     height: 90%;
     display: flex;
     justify-content: space-between;
