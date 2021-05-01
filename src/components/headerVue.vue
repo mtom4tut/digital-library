@@ -87,6 +87,28 @@ header {
     align-items: center;
 }
 
+@media (max-width: 1240px) {
+    .header_content {
+        width: 875px;
+    }
+}
+
+@media (max-width: 920px) {
+    header {
+        height: 120px;
+    }
+
+    .header_content {
+        width: 575px;
+    }
+}
+
+@media (max-width: 620px) {
+    .header_content {
+        width: 310px;
+    }
+}
+
 /* -------------------- */
 .info_block {
     display: flex;
@@ -104,6 +126,12 @@ header {
     top: 50%;
     left: -80px;
     transform: translateY(-50%);
+}
+
+@media (max-width: 620px) {
+    .info_block::before {
+        display: none;
+    }
 }
 
 .info_item {
@@ -135,4 +163,11 @@ button {
     margin-right: 15px;
     cursor: pointer;
 }
+
+@media (max-width: 620px) {
+    button {
+        margin-right: 5px;
+    }
+}
+
 </style>

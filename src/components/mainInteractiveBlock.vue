@@ -1,7 +1,7 @@
 <template>
     <div class="interactive_block">
         <!-- блок: поиск, сортировка, реверс -->
-        <div>
+        <div class="block">
             <!-- поиск книг -->
             <input
                 type="text"
@@ -30,32 +30,38 @@
         </div>
 
         <!-- фильтры -->
-        <div>
+        <div class="block">
             <!-- фильтер по издательству -->
-            <span>Издательство:</span>
-            <select
-                name="filterPublishingHouse"
-                v-bind:arrayPublishingHouse="filterPublishingHouse"
-                v-model="filterPublishingHouse"
-            >
-                <mainOptionItem
-                    v-for="item of arrayPublishingHouse"
-                    v-bind:key="item.id"
-                    v-bind:item="item"
-                />
-            </select>
+            <div class="containerFilter">
+                <span>Издательство:</span>
+                <select
+                    name="filterPublishingHouse"
+                    v-bind:arrayPublishingHouse="filterPublishingHouse"
+                    v-model="filterPublishingHouse"
+                >
+                    <mainOptionItem
+                        v-for="item of arrayPublishingHouse"
+                        v-bind:key="item.id"
+                        v-bind:item="item"
+                    />
+                </select>
+            </div>
 
             <!-- фильтер по автору -->
-            <span>Автор:</span>
-            <select name="filterAuthor" v-bind:arrayAuthor="arrayAuthor" v-model="filterAuthor">
-                <mainOptionItem v-for="item of arrayAuthor" v-bind:key="item.id" v-bind:item="item" />
-            </select>
+            <div class="containerFilter">
+                <span>Автор:</span>
+                <select name="filterAuthor" v-bind:arrayAuthor="arrayAuthor" v-model="filterAuthor">
+                    <mainOptionItem v-for="item of arrayAuthor" v-bind:key="item.id" v-bind:item="item" />
+                </select>
+            </div>
 
-             <!-- фильтер по году издания -->
-            <span>Год:</span>
-            <select name="filterYear" v-bind:arrayYear="arrayYear" v-model="filterYear">
-                <mainOptionItem v-for="item of arrayYear" v-bind:key="item.id" v-bind:item="item" />
-            </select>
+            <!-- фильтер по году издания -->
+            <div class="containerFilter">
+                <span>Год:</span>
+                <select name="filterYear" v-bind:arrayYear="arrayYear" v-model="filterYear">
+                    <mainOptionItem v-for="item of arrayYear" v-bind:key="item.id" v-bind:item="item" />
+                </select>
+            </div>
         </div>
     </div>
 </template>
@@ -123,10 +129,18 @@ export default {
     flex-wrap: wrap;
 }
 
-div {
+.block {
     display: flex;
     align-items: center;
     margin: 10px 0;
+}
+
+@media (max-width: 620px) {
+    .block {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 0 10px 0;
+    }
 }
 
 /* ------------- */
@@ -142,12 +156,52 @@ input:focus {
     background-color: #5ea64930;
 }
 
+@media (max-width: 920px) {
+    input {
+        width: 180px;
+    }
+}
+
+@media (max-width: 920px) {
+    .containerFilter {
+        display: flex;
+        flex-direction: column;
+        margin: 0 15px;
+    }
+
+    .containerFilter select {
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 620px) {
+    .containerFilter {
+        margin: 0 5px;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .containerFilter select {
+        margin-bottom: 10px;
+    }
+}
+
 /* ------------- */
 /* общие стили */
 span {
     margin: 0 15px;
     font-weight: 600;
     font-size: 1.05rem;
+}
+
+@media (max-width: 620px) {
+    span {
+        margin: 0 10px 0 0;
+         font-size: 1rem;
+    }
 }
 
 select {
@@ -157,12 +211,24 @@ select {
     font-size: 1.05rem;
 }
 
+@media (max-width: 620px) {
+    select {
+        font-size: 1rem;
+    }
+}
+
 button {
     background-color: transparent;
     border: 1px solid #5ea649;
     border-radius: 5px;
     margin: 0 15px;
     padding: 10px;
+}
+
+@media (max-width: 620px) {
+    button {
+        margin: 0 0 0 10px;
+    }
 }
 
 input:hover,

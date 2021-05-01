@@ -162,6 +162,27 @@ main {
     margin: 0 auto;
     margin-top: 50px;
 }
+
+@media (max-width: 1240px) {
+    main {
+        width: 875px;
+    }
+}
+
+@media (max-width: 920px) {
+    main {
+        width: 575px;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 620px) {
+    main {
+        width: 310px;
+        margin-top: 20px;
+    }
+}
+
 .main_blockItems {
     width: 100%;
     display: flex;

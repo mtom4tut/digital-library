@@ -144,6 +144,31 @@ export default {
     margin: 0 auto;
     margin-bottom: 30px;
 }
+
+@media (max-width: 1240px) {
+    .mainItem {
+        width: 45%;
+    }
+}
+
+@media (max-width: 920px) {
+    .mainItem {
+        width: 70%;
+    }
+
+    h3 {
+        font-size: 0.9rem;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 620px) {
+    .mainItem {
+        width: 100%;
+        height: 340px;
+    }
+}
+
 /* -------------- */
 /* стили изображения */
 img {
@@ -166,6 +191,13 @@ img {
 
 p {
     line-height: 1.2rem;
+}
+
+@media (max-width: 620px) {
+    p {
+        line-height: 1rem;
+        margin: 7px 0;
+    }
 }
 
 .btn_block {
@@ -241,6 +273,17 @@ p {
     font-size: 24px;
     color: lightgrey;
     text-shadow: 1px 1px #bbb;
+}
+
+@media (max-width: 620px) {
+    .rating-area {
+        overflow: hidden;
+        width: 100px;
+    }
+    .rating-area:not(:checked) > label {
+        width: 20px;
+        font-size: 20px;
+    }
 }
 
 .rating-area:not(:checked) > label:before {
