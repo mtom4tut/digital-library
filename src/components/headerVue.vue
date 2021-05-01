@@ -7,7 +7,7 @@
 
             <div class="info_block">
                 <div class="info_item">
-                    <button id="basket">Корзина:</button> <span id="basket_num">0</span>
+                    <button id="basket">Корзина:</button> <span id="basket_num">{{ countBasket }}</span>
                 </div>
 
                 <div class="info_item" v-on:click="openModal()">
@@ -28,6 +28,7 @@ export default {
     data() {
         return {
             countBookmarks: 0,
+            countBasket: 0,
             busEvent,
         };
     },
@@ -60,6 +61,20 @@ export default {
         busEvent.$on('bookmarkRemoveModalWindow', (data) => {
             // изменение счетчика при удалении из модального окна закладок
             this.countBookmarks--;
+        });
+
+        // обработка события click из mainItem.vue
+        busEvent.$on('basketkMainСlick', (data) => {
+            // изменение счетчика книг добавленных в закладки
+            if (data) {
+                this.countBasket++;
+            } else {
+                this.countBasket--;
+            }
+        });
+        busEvent.$on('basketkRemoveModalWindow', (data) => {
+            // изменение счетчика при удалении из модального окна закладок
+            this.countBasket--;
         });
     },
 };

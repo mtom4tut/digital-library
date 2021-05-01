@@ -33,7 +33,17 @@
 
         <!-- блок с кнопками: добавить в закладки, купить  -->
         <div class="btn_block">
-            <button id="buy" aria-label="buy" :value="`${item.id}`">Купить</button>
+            <button
+                id="buy"
+                class="buy"
+                aria-label="buy"
+                :value="`${item.id}`"
+                v-bind:class="{ buy_active: buyActive }"
+                @click="buyActive = !buyActive"
+                v-on:click="buyMainСlick()"
+            >
+                {{textBuy}}
+            </button>
             <button
                 id="bookmarks"
                 class="bookmarks"
@@ -116,6 +126,12 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            textBuy: 'Купить',
+            buyActive: false,
+        };
+    },
     methods: {
         // пересчет рейтинга
         itemRating(rating) {
@@ -123,8 +139,18 @@ export default {
         },
 
         bookmarkMainСlick() {
+
             // событие click по #bookmarks уходит в headerVue.vue
             busEvent.$emit('bookmarkMainСlick', this.item.bookmarksActive);
+        },
+        buyMainСlick() {
+            if (this.buyActive) {
+                this.textBuy = 'Добавлено'
+            } else {
+                this.textBuy = 'Купить'
+            }
+            // событие click по #bookmarks уходит в headerVue.vue
+            busEvent.$emit('basketkMainСlick', this.buyActive);
         },
     },
 };
@@ -207,7 +233,7 @@ p {
 }
 
 /* стили для кнопки купить */
-#buy {
+.buy {
     width: 100px;
     height: 30px;
     border-radius: 10px;
@@ -215,8 +241,18 @@ p {
     margin-right: 15px;
 }
 
-#buy:hover {
+.buy:hover {
     background-color: #3e9e1e;
+    transition: 0.2s;
+}
+
+.buy_active {
+    background-color: transparent;
+    border: 3px solid #50a434;
+}
+
+.buy_active:hover {
+    background-color: #3e9e1e66;
     transition: 0.2s;
 }
 

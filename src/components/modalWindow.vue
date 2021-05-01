@@ -2,7 +2,7 @@
     <section class="section-modal" v-bind:class="{ modalActive: isActive }">
         <h2 class="modal-title">Закладки</h2>
         <button class="modal-close" @click="isActive = false">
-            <img src="@/images/modal-close.svg" alt="close" />
+            <img src="@/images/close.svg" alt="close" />
         </button>
 
         <div class="block_goods" v-bind:class="{ isempty: isempty }" v-bind:arrayBook="localStorageBookmarks">
@@ -72,6 +72,12 @@ export default {
     -moz-box-shadow: 0px 4px 20px #5ea64965;
     box-shadow: 0px 4px 20px #5ea64965;
     overflow: hidden;
+}
+
+@media (max-width: 620px) {
+    .section-modal {
+        width: 310px;
+    }
 }
 
 /* класс который показывает модальное окно */
