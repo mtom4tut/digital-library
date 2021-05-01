@@ -8,6 +8,7 @@
 
         <!-- модальное окно закладок -->
         <modalWindow />
+        <modalWindowBuy />
     </div>
 </template>
 
@@ -17,6 +18,7 @@ import mainVue from '@/components/mainVue';
 
 // import components modal window
 import modalWindow from '@/components/modalWindow';
+import modalWindowBuy from '@/components/modalWindowBuy';
 
 export default {
     name: 'App',
@@ -26,6 +28,7 @@ export default {
         mainVue,
         // components modal window
         modalWindow,
+        modalWindowBuy,
     },
 };
 </script>

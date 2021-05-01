@@ -6,8 +6,9 @@
             </a>
 
             <div class="info_block">
-                <div class="info_item">
-                    <button id="basket">Корзина:</button> <span id="basket_num">{{ countBasket }}</span>
+                <div class="info_item" v-on:click="openModalBuy()">
+                    <button id="basket">Корзина:</button> 
+                    <span id="basket_num">{{ countBasket }}</span>
                 </div>
 
                 <div class="info_item" v-on:click="openModal()">
@@ -39,12 +40,17 @@ export default {
             const arr = JSON.parse(localStorage.getItem('localStorageData'));
             // определение количества книг добавленных в закладки
             this.countBookmarks = arr.filter((item) => item.bookmarksActive == true).length;
+            this.countBasket = JSON.parse(localStorage.getItem('localStorageArrBuyId')).length;
         }
     },
     methods: {
         openModal() {
             // событие click уходит в modalWindow.vue
             busEvent.$emit('openModal');
+        },
+        openModalBuy() {
+            // событие click уходит в modalWindowBuy.vue
+            busEvent.$emit('openModalBuy');
         },
     },
     // получить доступ к реактивным данным и активным событиям
