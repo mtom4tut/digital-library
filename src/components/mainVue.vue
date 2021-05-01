@@ -149,7 +149,7 @@ export default {
     },
     created() {
         // обработка события удаления из закладок
-        // приходит из modalWindow.vue
+        // приходит из modalWindowItem.vue
         busEvent.$on('removeBookmarks', (index) => {
             let id = this.arrayBook
                 .map(function(e) {
@@ -157,6 +157,14 @@ export default {
                 })
                 .indexOf(index); // поиск по id
             this.arrayBook[id].bookmarksActive = false;
+            this.persist(); // обновление данных
+        });
+        // приходит из modalWindowBuyItem.vue
+        busEvent.$on('removeBuy', (id) => {
+            const index = this.localStorageArrBuyId.indexOf(id);
+                if (index > -1) {
+                    this.localStorageArrBuyId.splice(index, 1); // удаление id
+                }
             this.persist(); // обновление данных
         });
     },

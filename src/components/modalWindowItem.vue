@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .goodsItem {
     height: 100px;
     border-radius: 10px;

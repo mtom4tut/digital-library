@@ -1,4 +1,5 @@
 <template>
+    <!-- стили для этого компонента такие же как и для modalWindow.vue -->
     <section class="section-modal" v-bind:class="{ modalActive: isActive}">
         <h2 class="modal-title">Корзина</h2>
         <button class="modal-close" @click="isActive = false">
@@ -6,11 +7,11 @@
         </button>
 
         <div class="block_goods" v-bind:class="{ isempty: isempty }" v-bind:arrayBook="localStorageArrBuyId">
-            <!-- <modalWindowBuyItem
-                v-for="item of localStorageBookmarks"
-                v-bind:key="item.id"
+            <modalWindowBuyItem
+                v-for="item of localStorageArrBuyId"
+                v-bind:key="item"
                 v-bind:item="item"
-            /> -->
+            />
         </div>
     </section>
 </template>
@@ -54,3 +55,4 @@ export default {
     },
 };
 </script>
+
