@@ -42,7 +42,7 @@
                 @click="buyActive = !buyActive"
                 v-on:click="buyMainСlick()"
             >
-                {{textBuy}}
+                {{ textBuy }}
             </button>
             <button
                 id="bookmarks"
@@ -139,15 +139,20 @@ export default {
         },
 
         bookmarkMainСlick() {
-
             // событие click по #bookmarks уходит в headerVue.vue
             busEvent.$emit('bookmarkMainСlick', this.item.bookmarksActive);
         },
         buyMainСlick() {
             if (this.buyActive) {
-                this.textBuy = 'Добавлено'
+                this.textBuy = 'Добавлено';
+                this.$parent.localStorageArrBuyId.push(this.item.id);
             } else {
-                this.textBuy = 'Купить'
+                this.textBuy = 'Купить';
+                // поиск индекса массива под которым находится нужный id 
+                const index = this.$parent.localStorageArrBuyId.indexOf(this.item.id);
+                if (index > -1) { 
+                    this.$parent.localStorageArrBuyId.splice(index, 1); // удаление id
+                }
             }
             // событие click по #bookmarks уходит в headerVue.vue
             busEvent.$emit('basketkMainСlick', this.buyActive);

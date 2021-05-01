@@ -32,6 +32,7 @@ export default {
         return {
             arrayBook,
             localStorageData: [],
+            localStorageArrBuyId: [],
             filterPublishingHouse: 'Все',
             filterAuthor: 'Все',
             filterYear: 'Все',
@@ -117,16 +118,18 @@ export default {
                     });
                 }
             }
-            const parsed = JSON.stringify(this.localStorageData);
-            localStorage.setItem('localStorageData', parsed);
+            const parsedData = JSON.stringify(this.localStorageData);
+            const parsedId = JSON.stringify(this.localStorageArrBuyId);
+            localStorage.setItem('localStorageData', parsedData);
+            localStorage.setItem('localStorageArrBuyId', parsedId);
         },
     },
     mounted() {
         //отсортировать при загрузке страницы
         this.filterSortFunction;
         // получить данных из local storage
+        // проверка наличиия данных
         if (localStorage.getItem('localStorageData')) {
-            // проверка наличиия данных
             this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'));
             for (const item of this.localStorageData) {
                 let index = this.arrayBook
@@ -138,6 +141,10 @@ export default {
                 this.arrayBook[index].rating = item.rating;
                 this.arrayBook[index].yourRating = item.yourRating;
             }
+        }
+        // проверка наличиия данных
+        if (localStorage.getItem('localStorageArrBuyId')) {
+            this.localStorageArrBuyId = JSON.parse(localStorage.getItem('localStorageArrBuyId'));
         }
     },
     created() {
