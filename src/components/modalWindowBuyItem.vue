@@ -41,7 +41,7 @@ export default {
     data() {
         return {
             arrayBook,
-            count: 1,
+            count: this.item.count,
         };
     },
     methods: {
@@ -67,6 +67,8 @@ export default {
             if (this.count > 10) {
                 this.count = 10;
             }
+            // уходит в mainVue.vue
+            busEvent.$emit('updateBuyCount', this.item.id, this.count);
         }
     }
 };

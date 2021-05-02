@@ -170,6 +170,17 @@ export default {
             this.localStorageArrBuyId.splice(index, 1); // удаление по id
             this.persist(); // обновление данных
         });
+        // приходит из modalWindowBuyItem.vue
+        busEvent.$on('updateBuyCount', (id, count) => {
+            const index = this.localStorageArrBuyId
+                .map(function(e) {
+                    return e.id;
+                })
+                .indexOf(id); // поиск по id
+            
+            this.localStorageArrBuyId[index].count = count; 
+            this.persist(); // обновление данных
+        });
     },
 };
 </script>
