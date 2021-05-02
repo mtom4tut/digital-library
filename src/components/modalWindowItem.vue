@@ -1,5 +1,5 @@
 <template>
-    <div class="goodsItem">
+    <div class="goodsItemInner">
         <div class="img">
             <img :src="require(`../assets/images/${item.id}.jpg`)" alt="imgBook" />
         </div>
@@ -14,7 +14,7 @@
 
 <script>
 import { busEvent } from '../main'; // уходит mainVue.vue при клике на кнопку удаления
-                                    // уходит в headerVue.vue при удалении закладки
+// уходит в headerVue.vue при удалении закладки
 // import data
 import arrayBook from '@/json/arrayBook.json';
 
@@ -50,15 +50,25 @@ export default {
 </script>
 
 <style>
-.goodsItem {
+.goodsItemInner {
     height: 100px;
     border-radius: 10px;
-    background-color: #5ea6490d;
+    background-color: #e5e7e3;
     margin: 10px 0;
     overflow: hidden;
     position: relative;
     text-align: start;
     padding-left: 100px;
+}
+
+@media (max-width: 620px) {
+    .goodsItem {
+        padding-left: 80px;
+    }
+
+    h3 {
+        margin: 10px 0;
+    }
 }
 
 .img {

@@ -130,6 +130,7 @@ export default {
         return {
             textBuy: 'Купить',
             buyActive: false,
+            count: 1,
         };
     },
     methods: {
@@ -162,7 +163,7 @@ export default {
             for(const it of arr) {
                 if (it == this.item.id) {
                     this.buyActive = true;
-                     this.textBuy = 'Добавлено';
+                    this.textBuy = 'Добавлено';
                     busEvent.$emit('existsBuyActive', this.buyActive);
                     return true;
                 }
