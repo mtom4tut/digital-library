@@ -1,6 +1,6 @@
 <template>
     <!-- стили для этого компонента такие же как и для modalWindow.vue -->
-    <section class="section-modal" v-bind:class="{ modalActive: isActive}">
+    <section class="section-modal" v-bind:class="{ modalActive: isActive }">
         <h2 class="modal-title">Корзина</h2>
         <button class="modal-close" @click="isActive = false">
             <img src="@/images/close.svg" alt="close" />
@@ -13,6 +13,7 @@
                 v-bind:item="item"
             />
         </div>
+        <button class="checkout" aria-label="checkout">Оформить заказ</button>
     </section>
 </template>
 
@@ -56,3 +57,15 @@ export default {
 };
 </script>
 
+<style scoped>
+.checkout {
+    margin: 20px 0;
+    padding: 10px;
+    transition: background-color 0.3s;
+
+}
+
+.checkout:hover {
+    background-color: green;
+}
+</style>
