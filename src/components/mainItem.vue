@@ -38,7 +38,7 @@
                 class="buy"
                 aria-label="buy"
                 :value="`${item.id}`"
-                v-bind:class="{ buy_active: buyActive || exists() }"
+                v-bind:class="{ buy_active: exists() }"
                 @click="buyActive = !buyActive"
                 v-on:click="buyMainСlick()"
             >
@@ -146,28 +146,35 @@ export default {
         buyMainСlick() {
             if (this.buyActive) {
                 this.textBuy = 'Добавлено';
-                this.$parent.localStorageArrBuyId.push(this.item.id);
+                this.$parent.localStorageArrBuyId.push({
+                    id: this.item.id,
+                    count: this.count,
+                });
             } else {
                 this.textBuy = 'Купить';
                 // поиск индекса массива под которым находится нужный id
-                const index = this.$parent.localStorageArrBuyId.indexOf(this.item.id);
-                if (index > -1) {
-                    this.$parent.localStorageArrBuyId.splice(index, 1); // удаление id
-                }
+                const index = this.$parent.localStorageArrBuyId
+                    .map(function(e) {
+                        return e.id;
+                    })
+                    .indexOf(this.item.id); // поиск по id
+
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                this.$parent.localStorageArrBuyId.splice(index, 1); // удаление по id
             }
             // событие click по #bookmarks уходит в headerVue.vue
             busEvent.$emit('basketkMainСlick', this.buyActive);
         },
         exists() {
             const arr = this.$parent.localStorageArrBuyId.slice();
-            for(const it of arr) {
-                if (it == this.item.id) {
+            for (const it of arr) {
+                if (it.id == this.item.id) {
                     this.buyActive = true;
                     this.textBuy = 'Добавлено';
-                    busEvent.$emit('existsBuyActive', this.buyActive);
                     return true;
                 }
             }
+            this.textBuy = 'Купить';
             return false;
         },
     },

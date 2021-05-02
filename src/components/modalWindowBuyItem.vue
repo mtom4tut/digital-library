@@ -2,7 +2,7 @@
     <div class="goodsItem">
         <div class="goodsItemInner">
             <div class="img">
-                <img :src="require(`../assets/images/${item}.jpg`)" alt="imgBook" />
+                <img :src="require(`../assets/images/${item.id}.jpg`)" alt="imgBook" />
             </div>
             <h3>{{ arrayBook[indexSearch()].nameBook }}</h3>
             <b>Автор:</b> <br />
@@ -32,7 +32,12 @@ import arrayBook from '@/json/arrayBook.json';
 
 export default {
     name: 'modalWindowBuyItem',
-    props: ['item'],
+    props: {
+        item: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
             arrayBook,
@@ -45,11 +50,11 @@ export default {
                 .map(function(e) {
                     return e.id;
                 })
-                .indexOf(this.item); // поиск индекса
+                .indexOf(this.item.id); // поиск индекса
         },
         removeBuy() {
             // уходит в mainVue.vue
-            busEvent.$emit('removeBuy', this.item);
+            busEvent.$emit('removeBuy', this.item.id);
             // уходит в headerVue.vue
             busEvent.$emit('basketkRemoveModalWindow');
         },

@@ -40,6 +40,9 @@ export default {
             const arr = JSON.parse(localStorage.getItem('localStorageData'));
             // определение количества книг добавленных в закладки
             this.countBookmarks = arr.filter((item) => item.bookmarksActive == true).length;
+        }
+        if (localStorage.getItem('localStorageArrBuyId')) {
+            // определение количества книг добавленных в корзину
             this.countBasket = JSON.parse(localStorage.getItem('localStorageArrBuyId')).length;
         }
     },

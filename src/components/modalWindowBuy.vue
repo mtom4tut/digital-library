@@ -9,7 +9,7 @@
         <div class="block_goods" v-bind:class="{ isempty: isempty }" v-bind:arrayBook="localStorageArrBuyId">
             <modalWindowBuyItem
                 v-for="item of localStorageArrBuyId"
-                v-bind:key="item"
+                v-bind:key="item.id"
                 v-bind:item="item"
             />
         </div>

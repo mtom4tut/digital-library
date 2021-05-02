@@ -161,10 +161,13 @@ export default {
         });
         // приходит из modalWindowBuyItem.vue
         busEvent.$on('removeBuy', (id) => {
-            const index = this.localStorageArrBuyId.indexOf(id);
-                if (index > -1) {
-                    this.localStorageArrBuyId.splice(index, 1); // удаление id
-                }
+            const index = this.localStorageArrBuyId
+                .map(function(e) {
+                    return e.id;
+                })
+                .indexOf(id); // поиск по id
+            
+            this.localStorageArrBuyId.splice(index, 1); // удаление по id
             this.persist(); // обновление данных
         });
     },
